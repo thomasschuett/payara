@@ -9,7 +9,7 @@ ENV PATH $PAYARA_PATH/bin:$PATH
 ENV PAYARA_VERSION=4.1.1.161
 RUN yum -y install unzip
 # create user
-RUN useradd -d /opt/payara -m payara
+RUN useradd -d /opt/payara -g 0 -m payara
 # Chance to user
 WORKDIR /opt/payara
 USER payara
@@ -36,7 +36,4 @@ RUN \
  $PAYARA_PATH/bin/asadmin --user admin --passwordfile=/tmp/passwd enable-secure-admin && \
  $PAYARA_PATH/bin/asadmin stop-domain
 RUN rm /tmp/passwd 
-RUN chgrp -R 0 $PAYARA_PATH
-RUN chmod -R g+rw $PAYARA_PATH
-RUN find $PAYARA_PATH -type d -exec chmod g+x {} +
 CMD $PAYARA_PATH/bin/asadmin start-domain --verbose
