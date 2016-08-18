@@ -36,4 +36,7 @@ RUN \
  $PAYARA_PATH/bin/asadmin --user admin --passwordfile=/tmp/passwd enable-secure-admin && \
  $PAYARA_PATH/bin/asadmin stop-domain
 RUN rm /tmp/passwd 
-CMD $PAYARA_PATH/bin/asadmin start-domain && tail -f $PAYARA_PATH/glassfish/domains/domain1/logs/server.log
+RUN chgrp -R 0 $PAYARA_PATH
+RUN chmod -R g+rw $PAYARA_PATH
+RUN find $PAYARA_PATH -type d -exec chmod g+x {} +
+CMD $PAYARA_PATH/bin/asadmin start-domain --verbose
