@@ -9,10 +9,10 @@ ENV PATH $PAYARA_PATH/bin:$PATH
 ENV PAYARA_VERSION=4.1.1.161
 RUN yum -y install unzip
 # create user
-RUN useradd -d /opt/payara -g 0 -m payara
+RUN useradd -d /opt/payara -g 0 -u 4711 -m payara
 # Chance to user
 WORKDIR /opt/payara
-USER payara
+USER 4711
 RUN curl  --output payara.zip https://s3-eu-west-1.amazonaws.com/payara.co/Payara+Downloads/Payara+$PAYARA_VERSION/payara-$PAYARA_VERSION.zip
 RUN unzip payara.zip
 RUN rm payara.zip
