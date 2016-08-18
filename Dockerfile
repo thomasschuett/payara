@@ -1,4 +1,4 @@
-FROM images/centos-jreheadless:latest
+FROM openshift/centos-jreheadless:latest
 MAINTAINER thomas.schuett@dreamit.de
 LABEL io.openshift.tags   payara,glassfish
 LABEL io.k8s.description Payara Server base install
