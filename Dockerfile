@@ -3,6 +3,7 @@ MAINTAINER thomas.schuett@dreamit.de
 LABEL io.openshift.tags   payara,glassfish
 LABEL io.k8s.description Payara Server base install
 LABEL io.openshift.expose-services 4848/https,8009:jmx,8080:http,8081:https
+LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 ENV container docker
 ENV PAYARA_PATH=/opt/payara/payara41
 ENV PATH $PAYARA_PATH/bin:$PATH
