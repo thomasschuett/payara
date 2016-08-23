@@ -13,7 +13,7 @@ RUN yum -y install unzip
 RUN mkdir -p /usr/libexec/s2i && \
   echo "#!/bin/sh" > /usr/libexec/s2i/assemble-runtime && \
   chmod 775 /usr/libexec/s2i/assemble-runtime && \
-  echo "#!/bin/sh" && \
+  echo "#!/bin/sh" /usr/libexec/s2i/run && \
   chmod 775 /usr/libexec/s2i/run
 # create user
 RUN useradd -d /opt/payara -g 0 -u 4711 -m payara
