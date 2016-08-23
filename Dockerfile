@@ -3,27 +3,26 @@ MAINTAINER thomas.schuett@dreamit.de
 LABEL io.openshift.tags   payara,glassfish
 LABEL io.k8s.description Payara Server base install
 LABEL io.openshift.expose-services 4848/https,8009:jmx,8080:http,8081:https
-LABEL io.openshift.s2i.scripts-url=image:///opt/payara/s2i
+LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
 ENV container docker
 ENV PAYARA_PATH=/opt/payara/payara41
 ENV PATH $PAYARA_PATH/bin:$PATH
 ENV PAYARA_VERSION=4.1.1.161
 RUN yum -y install unzip
+# s2i hooks
+RUN mkdir /opt/payara/s2i && \
+  echo "#!/bin/sh" > /usr/libexec/s2i/assemble-runtime && \
+  chmod 775 /usr/libexec/s2i/assemble-runtime && \
+  echo "#!/bin/sh\n/opt/payara/payara41/bin/asadmin start-domain --verbose" > /usr/libexec/s2i/run && \
+  chmod 775 /usr/libexec/s2i/run
 # create user
 RUN useradd -d /opt/payara -g 0 -u 4711 -m payara
-# Chance to user
+# Change to user
 WORKDIR /opt/payara
 USER 4711
 RUN curl  --output payara.zip https://s3-eu-west-1.amazonaws.com/payara.co/Payara+Downloads/Payara+$PAYARA_VERSION/payara-$PAYARA_VERSION.zip && \
   unzip payara.zip && \
   rm payara.zip
-# s2i hooks
-RUN mkdir /opt/payara/s2i && \
-  echo "#!/bin/sh" > /opt/payara/s2i/assemble-runtime && \
-  chmod 775 /opt/payara/s2i/assemble-runtime && \
-  echo "#!/bin/sh\n/opt/payara/payara41/bin/asadmin start-domain --verbose" > /opt/payara/s2i/run && \
-  chmod 775 /opt/payara/s2i/run
-
 EXPOSE 4848 8009 8080 8181
 # set credentials to admin/admin 
 
