@@ -18,8 +18,8 @@ RUN curl  --output payara.zip https://s3-eu-west-1.amazonaws.com/payara.co/Payar
   unzip payara.zip && \
   rm payara.zip
 RUN mkdir /opt/payara/s2i && \
-  echo "#!/bin/sh" > /opt/payara/s2i/assamble-runtime && \
-  chmod 775 /opt/payara/s2i/assamble-runtime
+  echo "#!/bin/sh" > /opt/payara/s2i/assemble-runtime && \
+  chmod 775 /opt/payara/s2i/assemble-runtime
 
 EXPOSE 4848 8009 8080 8181
 # set credentials to admin/admin 
