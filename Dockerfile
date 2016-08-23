@@ -21,7 +21,7 @@ RUN curl  --output payara.zip https://s3-eu-west-1.amazonaws.com/payara.co/Payar
 RUN mkdir /opt/payara/s2i && \
   echo "#!/bin/sh" > /opt/payara/s2i/assemble-runtime && \
   chmod 775 /opt/payara/s2i/assemble-runtime && \
-  echo "#!/bin/sh" > /opt/payara/s2i/run && \
+  echo "#!/bin/sh\n/opt/payara/payara41/bin/asadmin start-domain --verbose" > /opt/payara/s2i/run && \
   chmod 775 /opt/payara/s2i/run
 
 EXPOSE 4848 8009 8080 8181
