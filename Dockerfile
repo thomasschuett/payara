@@ -17,6 +17,7 @@ USER 4711
 RUN curl  --output payara.zip https://s3-eu-west-1.amazonaws.com/payara.co/Payara+Downloads/Payara+$PAYARA_VERSION/payara-$PAYARA_VERSION.zip && \
   unzip payara.zip && \
   rm payara.zip
+# s2i hooks
 RUN mkdir /opt/payara/s2i && \
   echo "#!/bin/sh" > /opt/payara/s2i/assemble-runtime && \
   chmod 775 /opt/payara/s2i/assemble-runtime && \
