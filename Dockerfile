@@ -11,9 +11,9 @@ ENV PAYARA_VERSION=4.1.1.161
 RUN yum -y install unzip
 # s2i hooks
 RUN mkdir -p /usr/libexec/s2i && \
-  echo "#!/bin/sh" > /usr/libexec/s2i/assemble-runtime && \
+  echo '#!/bin/sh' > /usr/libexec/s2i/assemble-runtime && \
   chmod 775 /usr/libexec/s2i/assemble-runtime && \
-  echo "#!/bin/sh" > /usr/libexec/s2i/run && \
+  echo -e '#!/bin/sh\nexec /opt/payara/payara41/bin/asadmin start-domain --verbose' > /usr/libexec/s2i/run && \
   chmod 775 /usr/libexec/s2i/run
 # create user
 RUN useradd -d /opt/payara -g 0 -u 4711 -m payara
